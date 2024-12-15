@@ -1,0 +1,390 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "c8DbLka4rFCW",
+        "outputId": "8317ab50-9ac4-4de2-e79b-6548aae28ae4"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Warning: Looks like you're using an outdated `kagglehub` version, please consider updating (latest version: 0.3.5)\n",
+            "Downloading from https://www.kaggle.com/api/v1/datasets/download/fven7u/tpch-1gb?dataset_version_number=1...\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "100%|██████████| 304M/304M [00:03<00:00, 88.6MB/s]"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Extracting files...\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Path to dataset files: /root/.cache/kagglehub/datasets/fven7u/tpch-1gb/versions/1\n"
+          ]
+        }
+      ],
+      "source": [
+        "import kagglehub\n",
+        "\n",
+        "# Download latest version\n",
+        "path = kagglehub.dataset_download(\"fven7u/tpch-1gb\")\n",
+        "\n",
+        "print(\"Path to dataset files:\", path)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "\n",
+        "print(\"Head of customer_index:\")\n",
+        "print(customer_index.head())\n",
+        "\n",
+        "print(\"\\nHead of customer_order_index (first 5 customer keys):\")\n",
+        "for custkey in list(customer_order_index.keys())[:5]:\n",
+        "    print(f\"Customer Key: {custkey}\")\n",
+        "    # Convert to DataFrame for better formatting\n",
+        "    print(pd.DataFrame(customer_order_index[custkey]).head())\n",
+        "\n",
+        "print(\"\\nHead of lineitem_index (first 5 order keys):\")\n",
+        "for orderkey in list(lineitem_index.keys())[:5]:\n",
+        "    print(f\"Order Key: {orderkey}\")\n",
+        "    # Convert to DataFrame for better formatting\n",
+        "    print(pd.DataFrame(lineitem_index[orderkey]).head())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "K6rTTgEm5RQq",
+        "outputId": "2cf4e5ae-81b2-42a7-a66c-1f4915a7c5db"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Head of customer_index:\n",
+            "Empty DataFrame\n",
+            "Columns: [c_name, c_mktsegment]\n",
+            "Index: []\n",
+            "\n",
+            "Head of customer_order_index (first 5 customer keys):\n",
+            "Customer Key: 1\n",
+            "   o_orderkey  o_custkey o_orderdate  o_shippriority\n",
+            "0      454791          1  1992-04-19               0\n",
+            "1     3868359          1  1992-08-22               0\n",
+            "Customer Key: 2\n",
+            "   o_orderkey  o_custkey o_orderdate  o_shippriority\n",
+            "0      430243          2  1994-12-24               0\n",
+            "1     1071617          2  1995-03-10               0\n",
+            "2     1374019          2  1992-04-05               0\n",
+            "3     1763205          2  1994-08-28               0\n",
+            "4     2992930          2  1994-05-21               0\n",
+            "Customer Key: 4\n",
+            "   o_orderkey  o_custkey o_orderdate  o_shippriority\n",
+            "0      164711          4  1992-04-26               0\n",
+            "1     1226497          4  1993-10-04               0\n",
+            "2     2986913          4  1994-06-10               0\n",
+            "3     4320612          4  1992-09-20               0\n",
+            "Customer Key: 5\n",
+            "   o_orderkey  o_custkey o_orderdate  o_shippriority\n",
+            "0     2630562          5  1993-06-27               0\n",
+            "Customer Key: 7\n",
+            "   o_orderkey  o_custkey o_orderdate  o_shippriority\n",
+            "0      135943          7  1993-06-22               0\n",
+            "1     1894087          7  1994-02-20               0\n",
+            "2     1959075          7  1994-12-23               0\n",
+            "3     2096544          7  1992-04-17               0\n",
+            "4     3211909          7  1993-06-29               0\n",
+            "\n",
+            "Head of lineitem_index (first 5 order keys):\n",
+            "Order Key: 1\n",
+            "   l_orderkey  l_extendedprice  l_discount  l_shipdate\n",
+            "0           1         21168.23        0.04  1996-03-13\n",
+            "1           1         45983.16        0.09  1996-04-12\n",
+            "2           1         13309.60        0.10  1996-01-29\n",
+            "3           1         28955.64        0.09  1996-04-21\n",
+            "4           1         22824.48        0.10  1996-03-30\n",
+            "Order Key: 2\n",
+            "   l_orderkey  l_extendedprice  l_discount  l_shipdate\n",
+            "0           2         44694.46         0.0  1997-01-28\n",
+            "Order Key: 4\n",
+            "   l_orderkey  l_extendedprice  l_discount  l_shipdate\n",
+            "0           4          30690.9        0.03  1996-01-10\n",
+            "Order Key: 7\n",
+            "   l_orderkey  l_extendedprice  l_discount  l_shipdate\n",
+            "0           7         13608.60        0.07  1996-05-07\n",
+            "1           7         11594.16        0.08  1996-02-01\n",
+            "2           7         81639.88        0.10  1996-01-15\n",
+            "3           7         31809.96        0.03  1996-03-21\n",
+            "4           7         73943.82        0.08  1996-02-11\n",
+            "Order Key: 32\n",
+            "   l_orderkey  l_extendedprice  l_discount  l_shipdate\n",
+            "0          32         47227.60        0.05  1995-10-23\n",
+            "1          32         64605.44        0.02  1995-08-14\n",
+            "2          32          2210.32        0.09  1995-08-07\n",
+            "3          32          6582.96        0.09  1995-08-04\n",
+            "4          32         79059.64        0.05  1995-08-28\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "from collections import defaultdict\n",
+        "\n",
+        "# Specify the correct file paths\n",
+        "customer_file = '/root/customer.tbl'\n",
+        "orders_file = '/root/orders.tbl'\n",
+        "lineitem_file = '/root/lineitem.tbl'\n",
+        "\n",
+        "# Step 1: Data Preprocessing\n",
+        "def load_and_preprocess_data():\n",
+        "    \"\"\"Load .tbl files, filter the data, and create indices.\"\"\"\n",
+        "    try:\n",
+        "        # Load .tbl files using the correct delimiter '|'\n",
+        "        Customer = pd.read_csv(customer_file, sep='|', header=None, usecols=[0, 1, 4], names=['c_custkey', 'c_name', 'c_mktsegment'])\n",
+        "        Orders = pd.read_csv(orders_file, sep='|', header=None, usecols=[0, 1, 4, 7], names=['o_orderkey', 'o_custkey', 'o_orderdate', 'o_shippriority'])\n",
+        "        Lineitem = pd.read_csv(lineitem_file, sep='|', header=None, usecols=[0, 5, 6, 10], names=['l_orderkey', 'l_extendedprice', 'l_discount', 'l_shipdate'])\n",
+        "    except FileNotFoundError:\n",
+        "        print(\"Error: One or more data files not found. Please ensure the files are in the correct location.\")\n",
+        "        return None, None, None\n",
+        "\n",
+        "    # Step 1: Filter Customer, Orders, Lineitem\n",
+        "    Customer = Customer[Customer['c_mktsegment'] == 'AUTOMOBILE']\n",
+        "    Orders = Orders[Orders['o_orderdate'] < '1995-03-13']\n",
+        "    Lineitem = Lineitem[Lineitem['l_shipdate'] > '1995-03-13']\n",
+        "\n",
+        "    # Step 2: Index Data for fast lookups\n",
+        "    customer_index = Customer.set_index('c_custkey')\n",
+        "    customer_order_index = Orders.groupby('o_custkey').apply(lambda x: x.to_dict(orient='records'))\n",
+        "    lineitem_index = Lineitem.groupby('l_orderkey').apply(lambda x: x.to_dict(orient='records'))\n",
+        "\n",
+        "    return customer_index, customer_order_index, lineitem_index\n",
+        "\n",
+        "# Step 2: Query Execution\n",
+        "def execute_query(customer_index, customer_order_index, lineitem_index):\n",
+        "    \"\"\"Join Customer → Orders → Lineitem and compute revenue.\"\"\"\n",
+        "    # Step 1: Join Customer → Orders\n",
+        "    joined_customer_orders = []\n",
+        "    for c_custkey, customer_row in customer_index.iterrows():\n",
+        "        if c_custkey in customer_order_index:\n",
+        "            orders = customer_order_index[c_custkey]\n",
+        "            joined_customer_orders.extend(orders)\n",
+        "\n",
+        "    # Step 2: Join Orders → Lineitem and compute revenue\n",
+        "    revenue_table = []\n",
+        "    for order in joined_customer_orders:\n",
+        "        o_orderkey = order['o_orderkey']\n",
+        "        if o_orderkey in lineitem_index:\n",
+        "            lineitems = lineitem_index[o_orderkey]\n",
+        "            for lineitem in lineitems:\n",
+        "                revenue = lineitem['l_extendedprice'] * (1 - lineitem['l_discount'])\n",
+        "                revenue_table.append({\n",
+        "                    'l_orderkey': lineitem['l_orderkey'],\n",
+        "                    'o_orderdate': order['o_orderdate'],\n",
+        "                    'o_shippriority': order['o_shippriority'],\n",
+        "                    'revenue': revenue\n",
+        "                })\n",
+        "    return revenue_table\n",
+        "\n",
+        "\n",
+        "# Step 3: Aggregation\n",
+        "def aggregate_revenue(revenue_table):\n",
+        "    \"\"\"Aggregate revenue by (l_orderkey, o_orderdate, o_shippriority).\"\"\"\n",
+        "    aggregated_revenue = defaultdict(float)\n",
+        "    for row in revenue_table:\n",
+        "        key = (row['l_orderkey'], row['o_orderdate'], row['o_shippriority'])\n",
+        "        aggregated_revenue[key] += row['revenue']\n",
+        "    return aggregated_revenue\n",
+        "\n",
+        "\n",
+        "# Step 4: Continuous Update Handling\n",
+        "def on_customer_insert(new_customer, customer_index):\n",
+        "    \"\"\"Handles customer insertion.\"\"\"\n",
+        "    if new_customer['c_mktsegment'] == 'AUTOMOBILE':\n",
+        "        customer_index.loc[new_customer['c_custkey']] = new_customer\n",
+        "\n",
+        "\n",
+        "def on_order_insert(new_order, customer_index, order_index):\n",
+        "    \"\"\"Handles order insertion.\"\"\"\n",
+        "    if new_order['o_orderdate'] < '1995-03-13':\n",
+        "        customer_key = new_order['o_custkey']\n",
+        "        if customer_key in customer_index.index:\n",
+        "            order_index.loc[new_order['o_orderkey']] = new_order\n",
+        "\n",
+        "\n",
+        "def on_lineitem_insert(new_lineitem, order_index, aggregated_revenue):\n",
+        "    \"\"\"Handles lineitem insertion and updates the aggregated revenue.\"\"\"\n",
+        "    if new_lineitem['l_shipdate'] > '1995-03-13':\n",
+        "        o_orderkey = new_lineitem['l_orderkey']\n",
+        "        if o_orderkey in order_index.index:\n",
+        "            order = order_index.loc[o_orderkey]\n",
+        "            revenue = new_lineitem['l_extendedprice'] * (1 - new_lineitem['l_discount'])\n",
+        "            key = (o_orderkey, order['o_orderdate'], order['o_shippriority'])\n",
+        "            aggregated_revenue[key] += revenue\n",
+        "\n",
+        "\n",
+        "def on_lineitem_delete(l_orderkey, l_extendedprice, l_discount, order_index, aggregated_revenue):\n",
+        "    \"\"\"Handles lineitem deletion and updates the aggregated revenue.\"\"\"\n",
+        "    if l_orderkey in order_index.index:\n",
+        "        order = order_index.loc[l_orderkey]\n",
+        "        revenue = l_extendedprice * (1 - l_discount)\n",
+        "        key = (l_orderkey, order['o_orderdate'], order['o_shippriority'])\n",
+        "        aggregated_revenue[key] -= revenue\n",
+        "\n",
+        "\n",
+        "# Step 5: Print Results\n",
+        "def print_results(aggregated_revenue):\n",
+        "    \"\"\"Prints the final aggregated revenue.\"\"\"\n",
+        "    print(f\"\\n{'Order Key':<10}{'Order Date':<15}{'Ship Priority':<15}{'Revenue':<10}\")\n",
+        "    print(\"=\"*50)\n",
+        "    for key, revenue in aggregated_revenue.items():\n",
+        "        l_orderkey, o_orderdate, o_shippriority = key\n",
+        "        print(f\"{l_orderkey:<10}{o_orderdate:<15}{o_shippriority:<15}{revenue:<10.2f}\")\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "1mlvmNqm5gIS"
+      },
+      "execution_count": 14,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Main Function\n",
+        "if __name__ == \"__main__\":\n",
+        "    print(\"Loading and Preprocessing Data...\")\n",
+        "    customer_index, customer_order_index, lineitem_index = load_and_preprocess_data()\n",
+        "\n",
+        "    # Check if data loading was successful before proceeding\n",
+        "    if customer_index is None or customer_order_index is None or lineitem_index is None:\n",
+        "        print(\"Exiting due to data loading error.\")  # Provide a clear message\n",
+        "        exit()\n",
+        "\n",
+        "    print(\"Loading and Preprocessing Data...\")\n",
+        "    customer_index, customer_order_index, lineitem_index = load_and_preprocess_data()\n",
+        "\n",
+        "    print(\"\\nExecuting Query...\")\n",
+        "    revenue_table = execute_query(customer_index, customer_order_index, lineitem_index)\n",
+        "\n",
+        "    print(\"\\nAggregating Revenue...\")\n",
+        "    aggregated_revenue = aggregate_revenue(revenue_table)\n",
+        "\n",
+        "    print(\"\\nQuery Results:\")\n",
+        "    print_results(aggregated_revenue)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "zCG2asdM5gAi",
+        "outputId": "a5c9700b-049d-4698-d406-89c094cc1710"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Loading and Preprocessing Data...\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "<ipython-input-14-4026fc0d0391>:28: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.\n",
+            "  customer_order_index = Orders.groupby('o_custkey').apply(lambda x: x.to_dict(orient='records'))\n",
+            "<ipython-input-14-4026fc0d0391>:29: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.\n",
+            "  lineitem_index = Lineitem.groupby('l_orderkey').apply(lambda x: x.to_dict(orient='records'))\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Loading and Preprocessing Data...\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "<ipython-input-14-4026fc0d0391>:28: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.\n",
+            "  customer_order_index = Orders.groupby('o_custkey').apply(lambda x: x.to_dict(orient='records'))\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Executing Query...\n",
+            "\n",
+            "Aggregating Revenue...\n",
+            "\n",
+            "Query Results:\n",
+            "\n",
+            "Order Key Order Date     Ship Priority  Revenue   \n",
+            "==================================================\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "<ipython-input-14-4026fc0d0391>:29: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.\n",
+            "  lineitem_index = Lineitem.groupby('l_orderkey').apply(lambda x: x.to_dict(orient='records'))\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
